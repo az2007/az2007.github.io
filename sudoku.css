@@ -154,6 +154,19 @@ header {
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
+  margin-top: 130px;
+}
+
+@media screen and (max-width: 768px) {
+  .game_container {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .game_container {
+    margin-top: 60px;
+  }
 }
 
 .tile {
@@ -278,4 +291,8 @@ header {
 
 .check-game-btn:active {
   transform: scale(0.95);
+}
+
+.active {
+  background-color: rgba(150, 7, 7, 0.5);
 }
