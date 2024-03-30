@@ -171,7 +171,9 @@ header {
 
 .tile {
   width: 48.4px;
+  max-width: 60.5px;
   height: 48.4px;
+  max-height: 60.5px;
   border: 1px solid lightgray;
   font-size: 20px;
   font-weight: bold;
@@ -189,7 +191,9 @@ header {
 
 #digits {
   width: 450px;
+  max-width: 562.5px;
   height: 25px;
+  max-height: 31.25px;
   background-color: rgb(150, 7, 7);
   margin: 0 auto;
   display: flex;
@@ -209,7 +213,9 @@ header {
 
 #board {
   width: 450px;
+  max-width: 562.5px;
   height: 450px;
+  max-height: 562.5px;
   background-color: white;
   margin: 0 auto;
   display: flex;
@@ -218,7 +224,9 @@ header {
 
 #digits1 {
   width: 450px;
+  max-width: 562.5px;
   height: 50px;
+  max-height: 62.5px;
   background-color: white;
   margin: 0 auto;
   display: flex;
@@ -227,7 +235,9 @@ header {
 
 .number {
   width: 44.3px;
+  max-width: 55.375px;
   height: 44.3px;
+  max-height: 55.375px;
   border: 1px solid black;
   font-size: 20px;
   font-weight: bold;
