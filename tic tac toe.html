@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="tic tac toe.css" />
+    <title>Tic Tac Toe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anta&family=Jacquarda+Bastarda+9&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar container flex">
+        <h2 class="logo">Games FF</h2>
+        <ul class="nav_links flex">
+          <li><a href="index.html">Home Page</a></li>
+          <li><a href="game_list.html">Game List</a></li>
+          <li><a href="sources_of_objects.html">Sources of Objects</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="homepage" id="home">
+      <div class="content flex">
+        <div class="cursor"></div>
+        <div class="wrapper">
+          <h3 class="game_status"></h3>
+          <div class="game_container">
+            <div data-cell-index="1" class="cell"></div>
+            <div data-cell-index="2" class="cell"></div>
+            <div data-cell-index="3" class="cell"></div>
+            <div data-cell-index="4" class="cell"></div>
+            <div data-cell-index="5" class="cell"></div>
+            <div data-cell-index="6" class="cell"></div>
+            <div data-cell-index="7" class="cell"></div>
+            <div data-cell-index="8" class="cell"></div>
+            <div data-cell-index="9" class="cell"></div>
+          </div>
+          <button class="game_restart">Restart Game</button>
+        </div>
+      </div>
+    </section>
+    <script type="text/javascript">
+      const cursor = document.querySelector(".cursor");
+      var timeout;
+
+      document.addEventListener("mousemove", (e) => {
+        let x = e.pageX;
+        let y = e.pageY;
+
+        cursor.style.top = y + "px";
+        cursor.style.left = x + "px";
+        cursor.style.display = "block";
+
+        function stoppedMouse() {
+          cursor.style.display = "none";
+        }
+        clearTimeout(timeout);
+        timeout = setTimeout(stoppedMouse, 1000);
+      });
+
+      document.addEventListener("mouseout", () => {
+        cursor.style.display = "none";
+      });
+      const statusDisplay = document.querySelector(".game_status");
+      let gameActive = true;
+      let currentPlayer = "X";
+      let gameState = ["", "", "", "", "", "", "", "", ""];
+      const winningMessage = () => `Player ${currentPlayer} has won!`;
+      const drawMessage = () => `Game ended in a draw!`;
+      const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
+      statusDisplay.innerHTML = currentPlayerTurn();
+      document
+        .querySelectorAll(".cell")
+        .forEach((cell) => cell.addEventListener("click", handleCellClick));
+      document
+        .querySelectorAll(".cell")
+        .forEach((cell) => cell.addEventListener("click", handleCellClick));
+
+      function handleCellClick(clickedCellEvent) {
+        const clickedCell = clickedCellEvent.target;
+        const clickedCellIndex =
+          parseInt(clickedCell.getAttribute("data-cell-index")) - 1;
+
+        if (gameState[clickedCellIndex] !== "" || !gameActive) {
+          return;
+        }
+
+        handleCellPlayed(clickedCell, clickedCellIndex);
+        handleResultValidation();
+      }
+
+      function handleCellPlayed(clickedCell, clickedCellIndex) {
+        gameState[clickedCellIndex] = currentPlayer;
+        clickedCell.innerHTML = currentPlayer;
+      }
+      const winningConditions = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+
+      function handleResultValidation() {
+        let roundWon = false;
+        for (let i = 0; i <= 7; i++) {
+          const winCondition = winningConditions[i];
+          let a = gameState[winCondition[0]];
+          let b = gameState[winCondition[1]];
+          let c = gameState[winCondition[2]];
+          if (a == "" || b == "" || c == "") {
+            continue;
+          }
+          if (a === b && b === c) {
+            roundWon = true;
+            break;
+          }
+        }
+        if (roundWon) {
+          statusDisplay.innerHTML = winningMessage();
+          gameActive = false;
+          return;
+        }
+
+        let roundDraw = !gameState.includes("");
+        if (roundDraw) {
+          statusDisplay.innerHTML = drawMessage();
+          gameActive = false;
+          return;
+        }
+
+        handlePlayerChange();
+      }
+
+      function handlePlayerChange() {
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+        statusDisplay.innerHTML = currentPlayerTurn();
+      }
+
+      function handleRestartGame() {
+        gameActive = true;
+        currentPlayer = "X";
+        gameState = ["", "", "", "", "", "", "", "", ""];
+        statusDisplay.innerHTML = currentPlayerTurn();
+        document
+          .querySelectorAll(".cell")
+          .forEach((cell) => (cell.innerHTML = ""));
+      }
+
+      document
+        .querySelector(".game_restart")
+        .addEventListener("click", handleRestartGame);
+
+      function handleRestartGame() {
+        gameActive = true;
+        currentPlayer = "X";
+        gameState = ["", "", "", "", "", "", "", "", ""];
+        statusDisplay.innerHTML = currentPlayerTurn();
+        document
+          .querySelectorAll(".cell")
+          .forEach((cell) => (cell.innerHTML = ""));
+      }
+
+      const { gsap } = window;
+
+      function animateElements() {
+        gsap.from(".cell", {
+          opacity: 0,
+          y: -50,
+          stagger: 0.1,
+          duration: 1,
+          ease: "power2.out",
+          delay: 2,
+        });
+
+        gsap.from(".game_restart", {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          ease: "power2.out",
+          delay: 2,
+        });
+        gsap.from(".game_status", {
+          opacity: 0,
+          y: -50,
+          duration: 1,
+          ease: "power2.out",
+          delay: 2,
+        });
+      }
+
+      window.addEventListener("load", animateElements);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="snake.css" />
+    <link rel="stylesheet"
+    href=""https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <title>Snake</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anta&family=Jacquarda+Bastarda+9&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar container flex">
+        <h2 class="logo">Games FF</h2>
+        <ul class="nav_links flex">
+          <li><a href="main.html">Home Page</a></li>
+          <li><a href="game_list.html">Game List</a></li>
+          <li><a href="sources_of_objects.html">Sources of Objects</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="homepage" id="home">
+      <div class="cursor"></div>
+      <div class="wrapper">
+        <div class="game_details">
+          <span class="score">Score: 0</span>
+          <button class="renew_high_score"></button>
+          <span class="high_score">High Score: 0</span>
+        </div>
+        <div class="play_board"></div>
+      </div>
+    </section>
+
+    <script type="text/javascript">
+      const cursor = document.querySelector(".cursor");
+      var timeout;
+
+      document.addEventListener("mousemove", (e) => {
+        let x = e.pageX;
+        let y = e.pageY;
+
+        cursor.style.top = y + "px";
+        cursor.style.left = x + "px";
+        cursor.style.display = "block";
+
+        function stoppedMouse() {
+          cursor.style.display = "none";
+        }
+        clearTimeout(timeout);
+        timeout = setTimeout(stoppedMouse, 1000);
+      });
+
+      document.addEventListener("mouseout", () => {
+        cursor.style.display = "none";
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const content_flex = document.querySelector(".content_flex");
+        const wrapper = document.querySelector(".wrapper");
+
+        gsap.to(content_flex, {
+          duration: 2,
+          delay: 1,
+          opacity: 1,
+          width: "1100px",
+          ease: "power2.inOut",
+        });
+        gsap.to(wrapper, {
+          duration: 2,
+          delay: 1,
+          opacity: 1,
+          width: "71.5vmin",
+          ease: "power2.inOut",
+        });
+        gsap.to(play_board, {
+          duration: 2,
+          delay: 1,
+          opacity: 1,
+          ease: "power2.inOut",
+        });
+        gsap.to(game_details, {
+          duration: 1,
+          delay: 3,
+          opacity: 1,
+          ease: "power2.inOut",
+        });
+      });
+      const play_board = document.querySelector(".play_board");
+      const scoreElement = document.querySelector(".score");
+      const highScoreElement = document.querySelector(".high_score");
+      const refresher = document.querySelector(".renew_high_score");
+      const game_details = document.querySelector(".game_details");
+
+      let foodX, foodY;
+      let snakeX = 5,
+        snakeY = 10;
+      let snakeBody = [];
+      let velocityX = 0,
+        velocityY = 0;
+      let gameOver = false;
+      let setIntervalId;
+      let score = 0;
+      let highScore = localStorage.getItem(".high_score") || 0;
+      highScoreElement.innerText = `High score: ${highScore}`;
+
+      const changeFoodPosition = () => {
+        foodX = Math.floor(Math.random() * 30) + 1;
+        foodY = Math.floor(Math.random() * 30) + 1;
+      };
+
+      const handleGameOver = () => {
+        clearInterval(setIntervalId);
+        alert(
+          "Game over! Your score is " +
+            score +
+            ". " +
+            "Your high score is " +
+            highScore +
+            ". " +
+            "Press OK to replay."
+        );
+        location.reload();
+      };
+
+      const changeDirection = (e) => {
+        if (e.key === "ArrowUp" && velocityY != 1) {
+          velocityX = 0;
+          velocityY = -1;
+        } else if (e.key === "ArrowDown" && velocityY != -1) {
+          velocityX = 0;
+          velocityY = 1;
+        } else if (e.key === "ArrowLeft" && velocityX != 1) {
+          velocityX = -1;
+          velocityY = 0;
+        } else if (e.key === "ArrowRight" && velocityX != -1) {
+          velocityX = 1;
+          velocityY = 0;
+        }
+        initGame();
+      };
+
+      const initGame = () => {
+        if (gameOver) return handleGameOver();
+        let htmlMarkup = `<div class="food" style="grid-area: ${foodY} / ${foodX}"></div>`;
+
+        if (snakeX === foodX && snakeY === foodY) {
+          changeFoodPosition();
+          snakeBody.push([foodX, foodY]);
+          score++;
+          highScore = score >= highScore ? score : highScore;
+          localStorage.setItem(".high_score", highScore);
+          scoreElement.innerText = `Score: ${score}`;
+          highScoreElement.innerText = `High score: ${highScore}`;
+        }
+
+        for (let i = snakeBody.length - 1; i > 0; i--) {
+          snakeBody[i] = snakeBody[i - 1];
+        }
+
+        snakeBody[0] = [snakeX, snakeY];
+
+        snakeX += velocityX;
+        snakeY += velocityY;
+
+        if (snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
+          gameOver = true;
+        }
+
+        for (let i = 0; i < snakeBody.length; i++) {
+          htmlMarkup += `<div class="head" style="grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
+          if (
+            i !== 0 &&
+            snakeBody[0][1] === snakeBody[i][1] &&
+            snakeBody[0][0] === snakeBody[i][0]
+          ) {
+            gameOver = true;
+          }
+        }
+        play_board.innerHTML = htmlMarkup;
+      };
+
+      const handleRefresherClick = () => {
+        highScore = 0;
+        localStorage.setItem("high_score", highScore);
+        highScoreElement.innerText = `High score: ${highScore}`;
+      };
+
+      changeFoodPosition();
+      setIntervalId = setInterval(initGame, 170);
+      initGame();
+      document.addEventListener("keydown", changeDirection);
+      refresher.addEventListener("click", handleRefresherClick);
+    </script>
+  </body>
+</html>

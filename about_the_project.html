@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="about_the_project.css" />
+    <title>About the project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anta&family=Jacquarda+Bastarda+9&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar container flex">
+        <h2 class="logo">Games FF</h2>
+        <ul class="nav_links flex">
+          <li><a href="index.html">Home Page</a></li>
+          <li><a href="sources_of_objects.html">Sources of Objects</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="homepage" id="home">
+      <div class="content flex">
+        <div class="heading">
+          <h1 class="about_us">About the project</h1>
+          <div class="line"></div>
+        </div>
+        <div class="block">
+          <p>
+            This is my website, where I load my games, which was created by my
+            own ideas and ChatGPT help. It was created for your fun and joy.
+            Have fun!!
+          </p>
+        </div>
+        <div class="block1">
+          <p>My gmail: nazar.gomanov@gmail.com</p>
+        </div>
+        <div class="block2">
+          <p>Enjoy playing! :)</p>
+        </div>
+      </div>
+      <div class="cursor"></div>
+    </section>
+    <script type="text/javascript">
+      const cursor = document.querySelector(".cursor");
+      var timeout;
+
+      document.addEventListener("mousemove", (e) => {
+        let x = e.pageX;
+        let y = e.pageY;
+
+        cursor.style.top = y + "px";
+        cursor.style.left = x + "px";
+        cursor.style.display = "block";
+
+        function stoppedMouse() {
+          cursor.style.display = "none";
+        }
+        clearTimeout(timeout);
+        timeout = setTimeout(stoppedMouse, 1000);
+      });
+
+      document.addEventListener("mouseout", () => {
+        cursor.style.display = "none";
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const block = document.querySelector(".block");
+        const block1 = document.querySelector(".block1");
+        const block2 = document.querySelector(".block2");
+        gsap.from(block, {
+          duration: 1,
+          opacity: 0,
+          delay: 2,
+          y: 50,
+          stagger: 1,
+          ease: "power2.out",
+        });
+        gsap.from(block1, {
+          duration: 1,
+          opacity: 0,
+          delay: 2,
+          y: 50,
+          stagger: 1,
+          ease: "power2.out",
+        });
+        gsap.from(block2, {
+          duration: 1,
+          opacity: 0,
+          delay: 2,
+          y: 50,
+          stagger: 1,
+          ease: "power2.out",
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,225 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("photo-1612404730960-5c71577fca11.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+h2 {
+  margin: 0;
+  color: black;
+  font-family: "Paytone One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.logo {
+  margin: 0;
+  color: black;
+  font-family: "Paytone One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  padding-bottom: 10px;
+  padding-left: 30px;
+}
+
+header {
+  background-color: #9fcbdc;
+  position: fixed;
+  height: 70px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  z-index: 100;
+  animation-name: slide-in;
+  animation-duration: 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+@keyframes slide-in {
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar {
+  justify-content: space-between;
+}
+
+.container {
+  background-color: #9fcbdc;
+  max-width: 1450px;
+  height: 70px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  animation-name: slide-in;
+  animation-duration: 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.flex {
+  font-family: "Madimi One", sans-serif;
+  text-decoration: none;
+  text-transform: capitalize;
+  list-style: none;
+  gap: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar a {
+  transition: 0.2s;
+  padding: 20px 0;
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.navbar_links {
+  list-style: none;
+}
+
+.navbar a:hover {
+  color: #ddd;
+}
+
+#home {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.cursor {
+  position: fixed;
+  z-index: 999;
+  background: orange;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 15px orange, 0 0 55px orange, 0 0 90px orange;
+  animation: colours 5s infinite;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+@keyframes colours {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.cursor:before {
+  content: "";
+  position: fixed;
+  position: absolute;
+  background: orange;
+  width: 37.5px;
+  height: 37.5px;
+  opacity: 0.2;
+  transform: translate(-30%, -30%);
+  border-radius: 50%;
+}
+
+.card_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card {
+  width: 300px;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  margin: 100px;
+  overflow: hidden;
+  animation-name: slide-out;
+  animation-duration: 1s;
+  animation-delay: 1.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.card:hover {
+  background-color: #f0f0f0;
+  animation: highlight 1s infinite alternate forwards;
+  transform: translateY(-10px);
+}
+
+.card:hover.ready {
+  background-color: #f0f0f0;
+  animation: highlight 1s infinite alternate forwards;
+  transform: translateY(-10px);
+}
+
+@keyframes slide-out {
+  100% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+}
+
+@keyframes highlight {
+  0% {
+    box-shadow: 0 0 40px yellow;
+  }
+  100% {
+    box-shadow: 0 0 60px yellow;
+  }
+}
+
+#snake {
+  width: 300px;
+  height: 250px;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  margin: 10px;
+  overflow: hidden;
+}
+
+#snake img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+}

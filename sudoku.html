@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="sudoku.css" />
+
+    <title>Sudoku</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Madimi+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anta&family=Jacquarda+Bastarda+9&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar container flex">
+        <h2 class="logo">Games FF</h2>
+        <ul class="nav_links flex">
+          <li><a href="index.html">Home Page</a></li>
+          <li><a href="game_list.html">Game List</a></li>
+          <li><a href="sources_of_objects.html">Sources of Objects</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="homepage" id="home">
+      <div class="cursor"></div>
+      <div class="game_container">
+        <div id="digits">
+          <div id="errors">Mistakes : 0</div>
+          <div id="timer"></div>
+        </div>
+        <div id="board"></div>
+        <br />
+        <div id="digits1"></div>
+        <button class="new-game-btn">New Game</button>
+        <button class="check-game-btn">Check Game</button>
+      </div>
+    </section>
+    <script src="sudoku.js"></script>
+  </body>
+</html>
